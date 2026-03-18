@@ -1,26 +1,23 @@
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const jobRoutes = require("./routes/jobRoutes");
+
+const jobRoutes = require("./routes/jobRoutes"); // ✅ important
+
 const app = express();
 
-// middleware
 app.use(cors());
 app.use(express.json());
+
+// ✅ connect routes
 app.use("/api/jobs", jobRoutes);
 
-// MongoDB connection
-mongoose.connect("mongodb+srv://besollajayprakash_db_user:Jayprakash14@cluster0.ymzvs86.mongodb.net/?retryWrites=true&w=majority")
-  .then(() => console.log("MongoDB connected ✅"))
-  .catch(err => console.log(err));
-
-// test route
 app.get("/", (req, res) => {
-  res.send("API is running 🚀");
+  res.send("Your API is running 🚀");
 });
 
-// start server
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
